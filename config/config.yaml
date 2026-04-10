@@ -1,0 +1,51 @@
+project:
+  name: reaction_free_energy
+  temperature_K: 298.15
+  gas_constant_kcal_mol_K: 0.0019872041
+
+paths:
+  raw_data_dir: data/raw
+  processed_data_dir: data/processed
+  work_dir: work
+  species_dir: work/species
+  pathways_dir: work/pathways
+  runs_dir: runs
+
+files:
+  species_table: data/processed/species_table.parquet
+  species_free_energies: data/processed/species_free_energies.parquet
+  pathway_profiles: data/processed/pathway_profiles.parquet
+  benchmark_scores: data/processed/benchmark_scores.parquet
+
+rdkit:
+  random_seed: 42
+  num_initial_conformers: 20
+  prune_rms_threshold: 0.25
+  max_attempts: 50
+  use_random_coords: false
+  do_mmff_relax: true
+
+crest:
+  executable: crest
+  method_flag: gfn2
+  energy_window_kcal_mol: 6.0
+  charge: 0
+  uhf: 0
+  extra_args: []
+
+xtb:
+  executable: xtb
+  method: gfn2
+  charge: 0
+  uhf: 0
+  optimize: true
+  use_tblite_if_available: true
+
+ensemble:
+  selection_window_kcal_mol: 5.0
+  max_selected_conformers: 10
+  boltzmann_reference: min
+
+plotting:
+  dpi: 160
+  figsize: [8, 4]

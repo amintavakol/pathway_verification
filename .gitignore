@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.DS_Store
+.env
+.venv/
+venv/
+runs/*
+work/species/*/crest/
+work/species/*/xtb/
+*.log

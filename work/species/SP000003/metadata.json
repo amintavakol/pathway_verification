@@ -1,0 +1,10 @@
+{
+  "species_id": "SP000003",
+  "reaction_id": "RXN000001",
+  "step_index": 2,
+  "role": "product",
+  "mapped_smiles": "[CH3:1][OH:3]",
+  "state_smiles": "[CH3:1][OH:3]",
+  "formal_charge": 0,
+  "spin_multiplicity": 1
+}

@@ -1,0 +1,10 @@
+{
+  "species_id": "SP000002",
+  "reaction_id": "RXN000001",
+  "step_index": 1,
+  "role": "intermediate",
+  "mapped_smiles": "[CH3:1].[Br-:2]",
+  "state_smiles": "[CH3:1].[Br-:2]",
+  "formal_charge": -1,
+  "spin_multiplicity": 1
+}
