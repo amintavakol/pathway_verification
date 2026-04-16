@@ -27,7 +27,10 @@ def main() -> None:
         thermo_csv = ROOT / "work" / "species" / species_id / "final" / "conformer_thermo.csv"
         if not thermo_csv.exists():
             continue
-        thermo_df = pd.read_csv(thermo_csv)
+        try:
+            thermo_df = pd.read_csv(thermo_csv)
+        except pd.errors.EmptyDataError:
+            continue
         if thermo_df.empty or "G_kcal_mol" not in thermo_df.columns:
             continue
         result = boltzmann_average_dataframe(
