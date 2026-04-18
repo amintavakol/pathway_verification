@@ -43,6 +43,12 @@ Plot one reaction profile:
 python workflows/visualize_free_energy_profile.py --reaction-id RXN000001
 ```
 
+## Example Output
+
+Below is an example of a generated free energy profile for a reaction pathway:
+
+![Example Free Energy Profile](assets/example_profile.png)
+
 ## Notes
 
 - The pipeline assumes exactly one pathway per reaction.
