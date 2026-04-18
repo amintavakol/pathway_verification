@@ -2,6 +2,6 @@
   "species_id": "SP000005",
   "temperature_K": 298.15,
   "n_conformers": 6,
-  "G_min_kcal_mol": -6904.048181188255,
-  "G_boltzmann_kcal_mol": -6904.047509342909
+  "G_min_kcal_mol": -6904.0496317826255,
+  "G_boltzmann_kcal_mol": -6904.0472048925585
 }

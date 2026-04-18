@@ -16,4 +16,10 @@ def formal_charge_from_smiles(smiles: str) -> int:
 
 
 def default_spin_multiplicity(smiles: str) -> int:
-    return 1
+    if Chem is None:
+        return 1
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return 1
+    n_rad = sum(atom.GetNumRadicalElectrons() for atom in mol.GetAtoms())
+    return n_rad + 1

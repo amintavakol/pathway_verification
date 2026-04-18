@@ -40,6 +40,8 @@ xtb:
   uhf: 0
   optimize: true
   use_tblite_if_available: true
+  max_iterations: 1000
+  electronic_temperature_K: 500.0
 
 ensemble:
   selection_window_kcal_mol: 5.0
@@ -47,5 +49,5 @@ ensemble:
   boltzmann_reference: min
 
 plotting:
-  dpi: 160
-  figsize: [8, 4]
+  dpi: 300
+  figsize: [10, 5]

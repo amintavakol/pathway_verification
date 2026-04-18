@@ -19,6 +19,7 @@ def build_initial_3d(smiles: str, out_sdf: str | Path, out_xyz: str | Path, rand
     mol = mol_from_smiles(smiles)
     params = AllChem.ETKDGv3()
     params.randomSeed = random_seed
+    params.useRandomCoords = True
     status = AllChem.EmbedMolecule(mol, params)
     if status != 0:
         raise RuntimeError(f"RDKit embedding failed for SMILES: {smiles}")

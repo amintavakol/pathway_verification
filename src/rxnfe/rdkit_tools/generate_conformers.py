@@ -28,6 +28,7 @@ def generate_rdkit_conformers(
 
     params = AllChem.ETKDGv3()
     params.randomSeed = random_seed
+    params.useRandomCoords = True
 
     conf_ids = list(AllChem.EmbedMultipleConfs(mol, numConfs=n_confs, params=params))
 
