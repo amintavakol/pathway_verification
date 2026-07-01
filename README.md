@@ -1,4 +1,4 @@
-# Simple Reaction Thermo
+# Simple Free Energy (reaction thermodynamics)
 
 A lightweight, self-contained Python pipeline for calculating and visualizing free energy profiles ($\Delta G$) at the semiempirical level of theory for multi-step reaction pathways from SMILES.
 
