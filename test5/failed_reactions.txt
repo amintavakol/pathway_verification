@@ -1,0 +1,16 @@
+Simple Reaction Thermo -- Failure Report
+============================================================
+
+REACTIONS WITHOUT PLOTS (1)
+------------------------------------------------------------
+  RXN000020
+    Reason : State_0 (reference) could not be computed. Failed molecules: N#[C][K]: xTB failed for conformer 0: IndexError: index 2 is out of bounds for axis 0 with size 2; N#[C][K]: xTB failed for conformer 0: IndexError: index 2 is out of bounds for axis 0 with size 2
+
+MOLECULES THAT FAILED IN xTB (1)
+------------------------------------------------------------
+  SMILES : N#[C][K]
+  Reason : xTB failed for conformer 0: IndexError: index 2 is out of bounds for axis 0 with size 2
+
+============================================================
+Tip: check SMILES validity, charge/spin state, and whether
+xTB supports the elements in your molecule.
