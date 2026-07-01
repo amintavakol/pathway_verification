@@ -66,6 +66,60 @@ Every state must be **atom-balanced** — Step 1b checks this before any QM runs
 - **Per-reaction PNG plots** saved as `{output_dir}/{rxn_id}.png`, one file per reaction
 - **Console log** with full per-step diagnostics: atom inventory, optimized energies, vibrational frequencies, Boltzmann weights, and $\Delta G$ profile
 - **Optimized geometries** in XYZ format (if `--save-geoms` is set), named by sanitized SMILES + hash
+- **Failure report** at `{output_dir}/failed_reactions.txt`, written whenever any reaction could not be completed (see below)
+
+---
+
+## Error Handling
+
+The pipeline is designed to process large batches without stopping on individual failures. Every step catches exceptions at the per-reaction or per-molecule level, logs the reason, and continues with the remaining input. A `failed_reactions.txt` report is written at the end of every run that had at least one failure.
+
+### What is caught and where
+
+| Step | Failure type | Effect |
+|---|---|---|
+| Step 0 | Invalid SMILES (e.g. `[ClH2-]`, wrong valence, typo) | Reaction skipped entirely; no compute time wasted |
+| Step 2 | RDKit 3D embedding fails (unusual connectivity) | Molecule skipped; any reaction requiring it is skipped in Step 6 |
+| Step 4 | GFN2-xTB geometry optimisation or Hessian fails | Molecule skipped; reason recorded with full exception message |
+| Step 6 | State_0 (reference) has missing G values | Reaction skipped; remaining reactions unaffected |
+| Any step | Unexpected exception | Caught by `run_pipeline_safe`; report written; process exits cleanly |
+
+### Failure report format
+
+`failed_reactions.txt` contains three sections, each only present if there were failures of that type:
+
+```
+Simple Reaction Thermo -- Failure Report
+============================================================
+
+SMILES PARSE ERRORS -- Step 0 (1)
+------------------------------------------------------------
+  RXN000025
+    Reason : Invalid SMILES in State_3: Cannot parse state SMILES:
+             'COc1nnc(s1)N=C=O.[ClH2-].[Cl+]'
+
+xTB COMPUTATION FAILURES -- Step 4 (1)
+------------------------------------------------------------
+  SMILES : N#[C][Na]
+  Reason : xTB failed for conformer 0: RuntimeError: SCF did not converge
+
+REACTIONS WITHOUT PLOTS -- Step 6 (1)
+------------------------------------------------------------
+  RXN000004
+    Reason : State_0 (reference) could not be computed.
+             Failed molecules: N#[C][Na]: xTB failed ...
+```
+
+### Common failure causes and fixes
+
+**Invalid SMILES valence** — e.g. `[ClH2-]` (Cl with 2 H and negative charge exceeds permitted valence). Verify with:
+```bash
+python -c "from rdkit import Chem; print(Chem.MolFromSmiles('YOUR_SMILES'))"
+```
+
+**Covalent representation of ionic species** — e.g. `C(#N)[Na]` encodes a covalent C–Na bond which xTB cannot handle. Use the ionic form instead: `[Na+].[C-]#N`.
+
+**Unbalanced states** — missing a leaving group, solvent molecule, or counter-ion in one state causes the energy of that state to be wrong by hundreds of kcal/mol. Step 1b will flag this before any QM runs. Every state must have the same total atom count as the previous one.
 
 ---
 
